@@ -6,16 +6,16 @@
     <title>Formulario</title>
 </head>
 <body>
-<form action="/names" method="post">
-    <label for="texto">Introduzca un nombre</label>
-    <input id="texto" type="text" name="name" required>
+<form action="/namesDB" method="post">
+    <label for="inputName">Introduzca un nombre</label>
+    <input id="inputName" type="text" name="name" required>
     <input type="submit" value="Enviar">
 </form>
 <ul id="nameList"></ul>
 
 <script defer type="module">
     async function getNames() {
-        return await fetch('http://localhost:3000/names').then(r => r.json())
+        return await fetch('http://localhost:3000/namesDB').then(r => r.json())
     }
 
     async function renderNames() {
@@ -38,7 +38,7 @@
         e.preventDefault()
         const formData = new FormData(form)
         const name = formData.get('name')
-        await fetch('http://localhost:3000/names', {
+        await fetch('http://localhost:3000/namesDB', {
             method: 'POST',
             body: JSON.stringify({name}),
             headers: {

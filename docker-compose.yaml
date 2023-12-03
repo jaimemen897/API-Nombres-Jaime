@@ -5,13 +5,13 @@ services:
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: testing
-      MONGO_INITDB_DATABASE: names
+      MONGO_INITDB_ROOT_PASSWORD: passMongo
+      MONGO_INITDB_DATABASE: namesDB
     ports:
       - 27018:27017
     volumes:
       - ./database:/data/db
-      - ./scripts-mongo/test.js:/docker-entrypoint-initdb.d/test.js:ro
+      - ./scripts-mongo/createUser.js:/docker-entrypoint-initdb.d/createUser.js:ro
     networks:
       - network-despliegue
 

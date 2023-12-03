@@ -1,4 +1,4 @@
-import {Name} from "./schemas/name.js";
+import {Name} from "./schemas/nameObject.js";
 
 import express from "express";
 
@@ -8,7 +8,7 @@ import cors from "cors";
 
 const app = express();
 
-const uri = 'mongodb://root:testing@despliegue-mongo:27017/names?authSource=admin';
+const uri = 'mongodb://root:passMongo@despliegue-mongo:27017/namesDB?authSource=admin';
 await mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -16,13 +16,13 @@ await mongoose.connect(uri, {
 app.use(cors())
 app.use(express.json());
 
-app.get('/names', async (req, res) => {
+app.get('/namesDB', async (req, res) => {
     const names = await Name.find().select('name').exec();
     const namesArray = names.map(name => name.name);
     res.send(namesArray);
 })
 
-app.post('/names', async (req, res) => {
+app.post('/namesDB', async (req, res) => {
     const name = new Name({name: req.body.name});
     await name.save();
     res.send(name);
